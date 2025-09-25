@@ -1,30 +1,37 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LadderTest {
-        private Ladder ladder;
-        @BeforeEach
-        void setUp() {
-            ladder = new Ladder(7, 7);
-            ladder.drawLine(new Position(1, 2, 1));
-            ladder.drawLine(new Position(2, 4, 2));
-            ladder.drawLine(new Position(3, 4, 3));
-            ladder.drawLine(new Position(5, 6, 5));
-            ladder.drawLine(new Position(3, 5, 6));
-        }
+    LadderCreator ladderCreator = new LadderCreator(7, 7);
 
-        @Test
-        @DisplayName("정상 작동하는 지 테스트")
-        void run() {
-//        ladder.showLadder();
-//            System.out.println(ladder.run(1));
-//            ladder.showLadder();
-            assertAll(
-                    () -> assertEquals(5, ladder.run(1))
-//                    () -> assertEquals(3, ladder.run(6)),
-//                    () -> assertEquals(3, ladder.run(7))
-            );
+    @BeforeEach
+    void setUp() {
+        ladderCreator.drawLine(new Position(0, 0));
+        ladderCreator.drawLine(new Position(1, 1));
+        ladderCreator.drawLine(new Position(2, 5));
+        ladderCreator.drawLine(new Position(5, 2));
     }
+
+
+    @Test
+    @DisplayName("사다리 게임 정상 작동 테스트")
+    void testGame() {
+        LadderRunner ladderRunner = new LadderRunner(ladderCreator.getRows());
+        assertEquals(2, ladderRunner.run(1));
+    }
+//    @DisplayName("테스트 정상 작동 테스트")
+//    @ParameterizedTest(name = "start={0} → expected={1}")
+//    @CsvSource({
+//            "0, 3",
+//            "1, 2",
+//            "5, 6",
+//            "3, 3"
+//    })
+//    void runParameterized(int start, int expected) {
+//        ladderRunner = new LadderRunner(ladderCreator.getRows());
+//        assertEquals(expected, ladderRunner.run(start));
+//    }
 }
