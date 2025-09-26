@@ -45,4 +45,13 @@ public class Row {
     public void drawRow(int colIdx) { //row에서 직접 사다리를 그림
         row[colIdx] = 1;
     }
+
+    //row가 겹쳐지지 않는지, 연속되지 않는 지 검사하는 메서드
+    public boolean isLineOccupied(int positionCol) {
+        if(positionCol==0)
+            return row[positionCol+2]==1||row[0]==1;
+        if(positionCol==rowSize-2)
+            return row[positionCol-1]==1||row[positionCol]==1;
+        return row[positionCol-1]==1||row[positionCol+2]==1||row[positionCol]==1;
+    }
 }
